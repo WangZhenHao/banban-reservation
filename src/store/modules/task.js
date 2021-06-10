@@ -54,7 +54,7 @@ const actions = {
     initTask(context) {
         const task = context.state.currentTask;
 
-        if(task.id && task.resource === 1) {
+        if(task.id && (task.resource === 1 || task.taskStatus === 1 )) {
             context.dispatch('runTask', task);
         }
     },

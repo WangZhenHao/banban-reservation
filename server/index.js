@@ -52,7 +52,7 @@ function useRouter(path){
 async function start () {
     useMiddleware()
     useRouter()
-    app.listen(3001, '127.0.0.1');
+    app.listen(3001, '0.0.0.0');
     console.log('http://127.0.0.1:3001')
 }
 
