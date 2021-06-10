@@ -88,7 +88,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             const task = context.state.currentTask;
         
-            if(task.timer) {
+            if(task.id) {
                 task.taskStatus = 0;
                 clearTimeout(task.timer)
 

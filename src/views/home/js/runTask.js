@@ -132,6 +132,7 @@ function reversionPlan(item) {
         // } else {
 
         // }
+        store.dispatch('task/stopTask')
         store.commit('task/showTaskTips', tips)
         MessageBox({
             title: '消息',
@@ -139,7 +140,7 @@ function reversionPlan(item) {
             message: `${tips}`,
             confirmButtonText: '确定',
         }).then(() => {
-            store.dispatch('task/initTask')
+            // store.dispatch('task/initTask')
         })
         
     }).catch((res) => {
