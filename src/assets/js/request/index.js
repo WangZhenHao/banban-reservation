@@ -7,7 +7,7 @@ const {
 const config = {
   baseUrl: VUE_APP_API
 }
-console.log(process.env)
+// console.log(process.env)
 /**
  * get请求
  * @param url

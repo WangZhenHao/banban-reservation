@@ -53,15 +53,16 @@ export default new Vuex.Store({
             id: '1111'
         }]
         
+        commit('task/addTask', tasksList);
+        commit('task/chageCurrentTask', currentTask);
+
         if(Object.keys(state.userInfo).length) {
           resolve();
         } else if(Object.keys(userToken).length && Object.keys(userInfo).length) {
           commit('saveUserInfo', userInfo)
           commit('saveUserToken', userToken)
           commit('saveCoachInfo', coachInfo)
-          commit('task/addTask', tasksList);
-          commit('task/chageCurrentTask', currentTask);
-
+          
           // store.dispatch('task/initTask')
           resolve();
         } else {
