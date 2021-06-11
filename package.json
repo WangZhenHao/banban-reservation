@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "server": "node ./build/staticServer.js",
+    "pm2:server": "pm2 start ./build/staticServer.js --name banban-reservation"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -19,6 +21,8 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "koa": "^2.13.1",
+    "koa-static": "^5.0.0",
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.5",
     "sass-loader": "^8.0.2",
