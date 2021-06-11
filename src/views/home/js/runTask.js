@@ -4,27 +4,32 @@ import store from '@src/store'
 import { MessageBox } from 'element-ui';
 
 function runTask(item) {
-    if(!item.id) return;
+    if(!item.id || item.taskStatus === 0) {
+        console.error('任务错误：', item);
+        return { type: 'error' }
+    };
 
     var crurrentStamp = +new Date();
     
     item.requestTwice++;
     crurrentStamp += 60 * 60 * 24 * 1000;
 
-    if(item.resource === 1) {
-        item.date = timestampToDate('yyyy-MM-DD', crurrentStamp);
-    } 
+    // if(item.resource === 1) {
+    //     item.date = timestampToDate('yyyy-MM-DD', crurrentStamp);
+    // } 
     
     var startTimeStamp = dateToTimestamp(item.date + ' ' + item.robTime[0])
     var endTimeStamp = dateToTimestamp(item.date + ' ' + item.robTime[1])
 
     if(crurrentStamp > endTimeStamp) {
-        let tips = `任务: ${item.name}，已结束。`
-        store.dispatch('task/stopTask')
-        MessageBox.alert(tips, '提示').then(() => {
-            store.commit('task/showTaskTips', tips)
+        let tips = `任务: ${item.name}，排课：${item.date} ${item.time.join('-')}; 已结束。`
+        store.commit('task/showTaskTips', tips);
+        store.dispatch('task/stopTask');
+
+        MessageBox.alert(tips, '提示', { showClose: false }).then(() => {
+            isEveryDayTask();
         })
-        
+        return { type: 'timeout' };
     }
 
     let tips = `任务: ${item.name} ${item.date} ${item.time.join('~')}, 等待任务命中:${item.requestTwice}次,开抢时间：${item.robTime.join('至')}; 执行时间：${timestampToDate('yyyy-MM-DD hh:mm:ss', +new Date())}`
@@ -84,8 +89,10 @@ async function _toReversion(taskInfo) {
                 message: `<p>没有匹配到${taskInfo.date}的排课</p>
                 <p>您要自动预约的是${taskInfo.date} ${taskInfo.time.join('至')}时间段的排班</p>`,
                 confirmButtonText: '确定',
+                showClose: false
             }).then(res => {
-                store.commit('task/showTaskTips', `没有匹配到${taskInfo.date}的排课`)
+                store.commit('task/showTaskTips', `没有匹配到${taskInfo.date}的排课`);
+                store.dispatch('task/stopTask')
             })
         } else {
             var crurrentStamp = +new Date();
@@ -95,11 +102,12 @@ async function _toReversion(taskInfo) {
             if(crurrentStamp > endTimeStamp) {
                 let tips = '本次接口请求任务结束，任务失败: 开抢时间已结束';
                 store.commit('task/showTaskTips', tips)
+                store.dispatch('task/stopTask')
                 console.log(tips);
-                clearTimeout(taskInfo.timer);
 
-                MessageBox.alert(tips, '提示').then(() => {
-                    store.commit('task/initTask')
+                MessageBox.alert(tips, '提示', { showClose: false }).then(() => {
+                    // store.commit('task/initTask')
+                    isEveryDayTask();
                 })
             } else {
                 taskInfo.requestTwice++
@@ -112,6 +120,23 @@ async function _toReversion(taskInfo) {
 
     }catch(e) {
         console.error(e)
+    }
+}
+
+function isEveryDayTask() {
+    const task = store.state.task.currentTask;
+    
+    if(task.resource === 1) {
+        const crurrentRobDate = timestampToDate('YYYY-MM-DD', +new Date() + 60 * 60 * 24 * 1000);
+        // 如何是今天的枪课任务
+        if(task.date === crurrentRobDate) {
+            task.date = timestampToDate('YYYY-MM-DD', +new Date() + 2 * (60 * 60 * 24 * 1000));
+        } else {
+            task.date = crurrentRobDate
+        }
+        
+        store.dispatch('task/runTask', task)
+        return true;
     }
 }
 
@@ -139,8 +164,10 @@ function reversionPlan(item) {
             dangerouslyUseHTMLString: true,
             message: `${tips}`,
             confirmButtonText: '确定',
+            showClose: false
         }).then(() => {
             // store.dispatch('task/initTask')
+            isEveryDayTask();
         })
         
     }).catch((res) => {
@@ -152,6 +179,7 @@ function reversionPlan(item) {
             message: `<h1>${tips}</h1>`,
             dangerouslyUseHTMLString: true,
             confirmButtonText: '确定',
+            showClose: false
         })
     })
 }

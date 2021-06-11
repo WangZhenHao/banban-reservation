@@ -54,8 +54,9 @@ const actions = {
     initTask(context) {
         const task = context.state.currentTask;
 
-        if(task.id && (task.resource === 1 || task.taskStatus === 1 )) {
-            context.dispatch('runTask', task);
+        if(task.id && task.taskStatus === 1) {
+            // context.dispatch('runTask', task);
+            context.dispatch('startTask')
         }
     },
     runTask(context, info) {
@@ -73,11 +74,12 @@ const actions = {
     },
     startTask(context) {
         const task = context.state.currentTask;
-
-        const taskInfo = runTask(task);
-        if (taskInfo) {
+        
+        const taskInfo = runTask(task) || {};
+        if(taskInfo.type) {
+            console.error('任务错误：', task);
+        } else if (taskInfo.id) {
             toReversion(taskInfo);
-            clearTimeout(taskInfo.timer);
         } else {
             task.timer = setTimeout(() => {
                 context.dispatch('startTask');
@@ -87,13 +89,12 @@ const actions = {
     stopTask(context) {
         return new Promise((resolve, reject) => {
             const task = context.state.currentTask;
-        
+            
             if(task.id) {
                 task.taskStatus = 0;
                 clearTimeout(task.timer)
-
                 context.commit('editTask', task)
-                context.commit('chageCurrentTask', {});
+                context.commit('chageCurrentTask', task);
                 context.commit('showTaskTips', '');
             }
 

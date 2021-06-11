@@ -23,7 +23,7 @@
                 label="执行时机"
                 prop="resource"
             >
-                <el-radio-group v-model="ruleForm.resource">
+                <el-radio-group @change="changeHandle" v-model="ruleForm.resource">
                     <el-radio :label="1">每天</el-radio>
                     <el-radio :label="2">某一天</el-radio>
                     <!-- <el-radio :label="3">日期范围</el-radio> -->
@@ -158,6 +158,12 @@ export default {
             
             
         },
+        changeHandle(e) {
+            if(e === 1) {
+                // 每天其实就是执行明天的抢课任务
+                this.ruleForm.date = new Date(+new Date() + 60 * 60 * 24 * 1000);
+            }
+        },
         confirm() {
             this.$refs['ruleForm'].validate((valid) => {
                 if(valid) {
@@ -168,13 +174,10 @@ export default {
                     ruleForm.robTime = [timestampToDate('hh:mm', robTime[0].getTime()), timestampToDate('hh:mm', robTime[1].getTime())]
                     ruleForm.time = [timestampToDate('hh:mm', time[0].getTime()), timestampToDate('hh:mm', time[1].getTime())]
                     ruleForm.resourceStr = resourceMap[ruleForm.resource];
-                    if(date) {
-                        ruleForm.date = timestampToDate('yyyy-MM-DD', date.getTime())
-                    }
+                    ruleForm.date = timestampToDate('yyyy-MM-DD', date.getTime())
                     
                     // this.$emit('add-task', ruleForm)
                     if(this.title === 1) {
-                        
                         this.$store.commit('task/editTask', ruleForm)
                     } else {
                         ruleForm.id = 'task-' + ~~(Math.random() * 999999)

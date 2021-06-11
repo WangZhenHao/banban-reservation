@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import task from './modules/task.js'
+import { timestampToDate  } from '@js/utils/utils'
 
 Vue.use(Vuex)
 
@@ -48,6 +49,7 @@ export default new Vuex.Store({
             time: ['19:00', '20:00'],
             robTime: ['20:00', '22:00'],
             taskStatus: 0,
+            date: timestampToDate('yyyy-MM-DD', +new Date() + (1000 * 60 * 60 * 24)),
             id: '1111'
         }]
         
