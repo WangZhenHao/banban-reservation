@@ -7,6 +7,15 @@
 
 ![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize.jpg)
 
+### 注意事项：
+
+```
+科目二：
+1：基础课可以通过系统自动预约，最高10节课，自由科和加强科是教练安排的，无法通过系统预约
+2：预约的时候，确保账号没有在其他地方登录，否则预约会失败
+
+
+```
 
 ### 项目介绍：
 
