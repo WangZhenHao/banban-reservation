@@ -6,6 +6,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/home'
+  },
+  {
     path: '/login',
     name: 'login',
     // route level code-splitting

@@ -88,7 +88,7 @@
                             </div> -->
                             <div>
                                 <el-button
-                                    :disabled="item.reservationState === 0"
+                                    :disabled="!(item.reservationState === 3)"
                                     @click="reversionPlan(item)"
                                     type="primary"
                                     size="mini"
