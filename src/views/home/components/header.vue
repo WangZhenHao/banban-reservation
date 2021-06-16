@@ -7,7 +7,7 @@
             <div class="p-l-five color-9">
                 <div class="font-28">{{ userInfo.userName }}</div>
                 <div class="font-24 p-t-5">
-                    <span>练车次数{{ houser.stuReservationHours }}</span> 
+                    <span>预约有效次数{{ houser.stuReservationHours }}</span> 
                     <span class="p-l-five">科目{{ userInfo.student.learnDriverProgress }}</span>
                 </div>
             </div>
