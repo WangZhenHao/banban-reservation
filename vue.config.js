@@ -8,7 +8,7 @@ module.exports = {
     publicPath: process.env.VUE_APP_PUBLICPATCH,
     devServer: {
         disableHostCheck: true,
-        port: 3000
+        port: 3002
     },
     chainWebpack: config => {
         config.resolve.alias.set('@src', resolve('./src'))
