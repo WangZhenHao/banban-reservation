@@ -1,7 +1,118 @@
 <template>
     <div class="container">
-        <nav-wrap></nav-wrap>
-        
+        <!-- <nav-wrap></nav-wrap> -->
+        <div>
+            <div class="coach-wrap flex-box items-center justify-s-b p-ten">
+                <div>
+                    <coach-detail ref="coachDetail"></coach-detail>
+                </div>
+                <div>
+                    <el-button
+                        @click="resetDateHandle"
+                        size="mini"
+                        type="warning"
+                    >重置日期</el-button>
+                    <el-button
+                        @click="showStudyListHandle"
+                        size="mini"
+                        type="primary"
+                    >练车记录</el-button>
+                    <el-button
+                        @click="addTaskHandle"
+                        size="mini"
+                        type="primary"
+                    >添加自动预约任务</el-button>
+                </div>
+            </div>
+            <div class="date-wrap flex-box">
+                <div class="date-desc text-center">
+                    <div class="date-page" @click="datePreHandle">上一页</div>
+                    <div
+                        :class="{'active': selectDate.date === item.date}"
+                        :key="index"
+                        @click="selectDateHandle(item)"
+                        class="data-desc__list items-center flex-box justify-center"
+                        v-for="(item, index) in dateList"
+                    >
+                        <div>
+                            <p class="font-28">{{ item.date }}</p>
+                            <p class="font-24 p-t-5">{{ item.tips }}</p>
+                        </div>
+                    </div>
+                    <div class="date-page" @click="dateNextHandle">下一页</div>
+                </div>
+                <div
+                    class="date-context flex-1 p-ten"
+                    v-loading="loadding"
+                >
+                    <div
+                        class="flex-box flex-wrap"
+                        v-if="planList.length"
+                    >
+                        <div
+                            :key="index"
+                            class="date-context__list"
+                            v-for="(item, index) in planList"
+                        >
+                            <div class="flex-box">
+                                <div>{{ filterTime(item.startTime) }}-{{ filterTime(item.endTime) }}</div>
+                                <div>{{ item.licensePlate }}</div>
+                            </div>
+                            <div>
+                                <div>{{ item.scheduleTypeName }}</div>
+                                <div>{{ item.trainAreaName }}</div>
+                            </div>
+                            <div class="student-list-wrap">
+                                <img
+                                    :key="j"
+                                    :src="info.url"
+                                    class="student-img"
+                                    v-for="(info, j) in item.studentList"
+                                    :title="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a' ? info.stuName : ''"
+                                />
+                                <!-- <span
+                                    :key="k"
+                                    v-for="(desc, k) in item.studentList"
+                                >{{ desc.stuName }}</span> -->
+                                <!-- <div>{{}}</div> -->
+                            </div>
+                            <!-- <div
+                                class="font-24 color-9"
+                                v-if="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a'"
+                            >
+                                <span
+                                    :key="j"
+                                    style="padding-left: 5px;"
+                                    v-for="(info, j) in item.studentList"
+                                >{{ info.stuName }}</span>
+                            </div> -->
+                            <div>
+                                <el-button
+                                    :disabled="!(item.reservationState === 3)"
+                                    @click="reversionPlan(item)"
+                                    type="primary"
+                                    size="mini"
+                                >{{ item.reservationRemark }}</el-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="text-center height-100 flex-box items-center"
+                        v-else
+                    >
+                        <div class="width-100 color-9">暂无排班</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-ten">
+            <show-task ref="showTask"></show-task>
+        </div>
+        <study-list ref="studyList"></study-list>
+        <add-task
+            @add-task="comfirmTaskHandle"
+            ref="addTask"
+        ></add-task>
     </div>
 </template>
 <script>
@@ -26,9 +137,24 @@ export default {
     data() {
         return {
             dateList: [],
+            // coachInfo: {
+            //     coachId: '100050',
+            // },
             selectDate: {},
             planList: [],
             loadding: false,
+            // taskList: [
+            //     {
+            //         name: '明天的预约',
+            //         resource: 2,
+            //         resourceStr: '某一天',
+            //         date: '2021-06-10',
+            //         time: ['19:00', '20:00'],
+            //         robTime: ['20:00', '22:00'],
+            //         taskStatus: 0,
+            //         id: '1111'
+            //     },
+            // ],
         };
     },
     mounted() {

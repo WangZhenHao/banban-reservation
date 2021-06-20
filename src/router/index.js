@@ -30,7 +30,29 @@ const routes = [
     meta: {
       title: '主页',
       noAuth: false
-    }
+    },
+    children: [
+      {
+        path: '/',
+        redirect: '/home/twoSubject'
+      },
+      {
+        path: '/home/twoSubject',
+        name: 'twoSubject',
+        component: () => import(/* webpackChunkName: "twoSubject" */ '../views/home/twoSubject'),
+        meta: {
+          title: '科目二'
+        }
+      },
+      {
+        path: '/home/analogueMachine',
+        name: 'analogueMachine',
+        component: () => import(/* webpackChunkName: "analogueMachine" */ '../views/home/analogueMachine'),
+        meta: {
+          title: '模拟机预约'
+        }
+      }
+    ]
   }
 ]
 

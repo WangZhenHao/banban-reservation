@@ -14,6 +14,7 @@ module.exports = {
         config.resolve.alias.set('@src', resolve('./src'))
         config.resolve.alias.set('@js', resolve('./src/assets/js'))
         config.resolve.alias.set('@css', resolve('./src/assets/css'))
-        config.resolve.alias.set('@api', resolve('./src/assets/api'))
+        config.resolve.alias.set('@api', resolve('./src/assets/api')),
+        config.resolve.alias.set('@views', resolve('./src/views'))
     }
 }
