@@ -1,20 +1,20 @@
 import { timestampToDate, dateToTimestamp } from '@js/utils/utils'
 
-function getCurrentFiveDate() {
+function getCurrentFiveDate(len) {
     var stamp = +new Date();
 
-    return getFiveDate(stamp)
+    return getFiveDate(stamp, len)
 }
 
-function getPreviuosFiveDate(stamp) {
-    stamp -= 60 * 60 * 24 * 1000 * 5;
-    return getFiveDate(stamp);
+function getPreviuosFiveDate(stamp, len) {
+    stamp -= 60 * 60 * 24 * 1000 * len;
+    return getFiveDate(stamp, len);
 }
 
-function getNextFiveDate(stamp) {
+function getNextFiveDate(stamp, len) {
     stamp += 60 * 60 * 24 * 1000;
 
-    return getFiveDate(stamp);
+    return getFiveDate(stamp, len);
 }
 
 function getFiveDate(stamp, len = 5) {
