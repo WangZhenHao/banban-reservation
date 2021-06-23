@@ -86,12 +86,17 @@ html {
 .m-t-ten {
   margin-top: 20px;
 }
-
+.m-t-five {
+  margin-top: 10px;
+}
 .m-l-ten {
   margin-left: 20px;
 }
 .p-l-five {
   padding-left: 10px;
+}
+.p-t-five {
+  padding-top: 10px;
 }
 
 .flex-box {

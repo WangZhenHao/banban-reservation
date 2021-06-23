@@ -116,7 +116,7 @@ Axios.interceptors.response.use(
   (res) => {
     const data = res.data
     const userConfig = res.config.userConfig
-
+    
     if (data.code === '200' || data.code === 1) {
       return data
     } else if(data.code === '-1') {
@@ -132,7 +132,7 @@ Axios.interceptors.response.use(
       return Promise.reject(data)
     } else {
       if(userConfig.showError) {
-        Message.error(data.message || data.description)
+        Message.error(data.message || data.description || '参数错误')
       }
       
       return Promise.reject(data)
