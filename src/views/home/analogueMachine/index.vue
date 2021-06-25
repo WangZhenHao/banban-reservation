@@ -83,6 +83,8 @@
                             :disabled="item.CanOrder === 0"
                             size="mini"
                             type="primary"
+                            @click="toAppointmentHandle(item)"
+                            @comfirm="getAppointment"
                         >{{ item.CanOrder === 0 ? '已满' : '选择' }}</el-button>
                     </div>
                 </div>
@@ -94,6 +96,8 @@
                 </div>
             </div>
         </div>
+
+        <appointment ref="appointment"></appointment>
     </div>
 </template>
 <script>
@@ -110,7 +114,12 @@ import {
     getNextFiveDate,
 } from '../js/calender';
 
+import appointment from './components/appointment.vue'
+
 export default {
+    components: {
+        appointment
+    },
     data() {
         return {
             baseInfoMap: {
@@ -137,6 +146,14 @@ export default {
             this.selectDate = this.dateList[0];
 
             this.getSimulatorParams();
+        },
+        toAppointmentHandle(info) {
+            this.$refs.appointment.init({ 
+                time: info.Times, 
+                companyId: this.baseInfoParams.companyId,
+                roomId: String(this.selectRoom.RoomId),
+                planDate: this.selectDate.date,
+            })
         },
         datePreHandle() {
             this.dateList = getPreviuosFiveDate(this.dateList[0].stamp, 7);
@@ -248,6 +265,7 @@ export default {
         user-select: none;
     }
     .date-context {
+        height: 218px;
         overflow: auto;
         border-left: 1px solid #eee;
         border-right: 1px solid #eee;
