@@ -21,6 +21,7 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "babel-plugin-component": "^1.1.1",
     "koa": "^2.13.1",
     "koa-static": "^5.0.0",
     "node-sass": "^4.12.0",
