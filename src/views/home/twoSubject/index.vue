@@ -161,6 +161,9 @@ export default {
         this.init();
         this.$store.dispatch('task/initTask')
     },
+    destroyed() {
+        this.$store.dispatch('task/stopTask');
+    },
     computed: {
         userInfo() {
             return this.$store.state.userInfo;
