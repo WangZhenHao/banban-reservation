@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="title font-28 flex-box items-center">
+        <div class="title font-28 flex-box items-center justify-s-b">
             <div class="p-l-ten">
                 <div>
                     <span>{{ baseInfoMap['OrderCount']['Remake'] }}: {{ baseInfoMap['OrderCount']['Value'] }}</span>
@@ -12,7 +12,9 @@
                     <span>{{ baseInfoMap['MissCount']['Remake'] }}: {{ baseInfoMap['MissCount']['Value'] }}</span>
                 </div>
             </div>
-            <div></div>
+            <div class="p-r-ten">
+                <el-button type="primary" size="mini" @click="showAppointmentListHandle">预约列表</el-button>
+            </div>
         </div>
         <div class="flex-box area-wrap">
             <div class="font-28 p-l-ten area-title">区域：</div>
@@ -98,6 +100,7 @@
         </div>
 
         <appointment ref="appointment"></appointment>
+        <appointment-list ref="appointmentList"></appointment-list>
     </div>
 </template>
 <script>
@@ -115,10 +118,13 @@ import {
 } from '../js/calender';
 
 import appointment from './components/appointment.vue'
+import appointmentList from './components/appointmentList.vue'
+import bus from './js/Bus'
 
 export default {
     components: {
-        appointment
+        appointment,
+        appointmentList
     },
     data() {
         return {
@@ -139,6 +145,11 @@ export default {
     },
     mounted() {
         this.init();
+
+        bus.$on('appointment', this.getAppointment)
+    },
+    beforeDestroy() {
+        bus.$off('appointment', this.getAppointment)
     },
     methods: {
         init() {
@@ -148,12 +159,16 @@ export default {
             this.getSimulatorParams();
         },
         toAppointmentHandle(info) {
+            
             this.$refs.appointment.init({ 
                 time: info.Times, 
                 companyId: this.baseInfoParams.companyId,
                 roomId: String(this.selectRoom.RoomId),
-                planDate: this.selectDate.date,
-            })
+                planDate: this.selectDate.date
+            }, this.baseInfoParams)
+        },
+        showAppointmentListHandle() {
+            this.$refs.appointmentList.init(this.baseInfoParams)
         },
         datePreHandle() {
             this.dateList = getPreviuosFiveDate(this.dateList[0].stamp, 7);

@@ -23,3 +23,15 @@ export function getAppointment(data) {
 export function getSimulatorNumber(data) {
     return post('/v1/analog/getSimulatorNumber', data)
 }
+
+export function saveAppointment(data) {
+    return post('/v1/analog/saveAppointment', data)
+}
+
+export function searchAppointment(data) {
+    return post('/v1/analog/searchAppointment', data)
+}
+
+export function cancelAppointment(data) {
+    return post('/v1/analog/cancelAppointment', data)
+}
