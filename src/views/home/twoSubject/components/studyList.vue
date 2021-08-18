@@ -4,11 +4,29 @@
         title="练车记录"
         width="1004px"
     >
+        <div v-show="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a'">
+            <el-form
+                :inline="true"
+                :model="form"
+                label-width="80px"
+                ref="form"
+            >
+                <el-form-item label="学员Id:">
+                    <el-input style="width: 420px;" clearable v-model="form.stuID" placeholder="请输入学员id"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button
+                        @click="onSubmit"
+                        type="primary"
+                    >查询</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
         <el-table
             :data="tableData"
             border
-            style="width: 100%"
             max-height="400"
+            style="width: 100%"
             v-loading="loading"
         >
             <el-table-column
@@ -109,24 +127,39 @@ export default {
             tableData: [],
             dialogVisible: false,
             loading: false,
+            form: {
+                stuID: '',
+            },
         };
+    },
+    computed: {
+        userInfo() {
+            return this.$store.state.userInfo;
+        },
+
     },
     methods: {
         init() {
             this.dialogVisible = true;
-            this.tableData = [];
 
             this.$nextTick(() => {
-                this.getList();
+                const stuID = this.userInfo.student.thirdpartyId;
+                this.getList(stuID);
             });
         },
-        getList() {
-            this.loading = true;
+        onSubmit() {
             const userInfo = this.$store.state.userInfo;
+            const stuID = this.form.stuID || userInfo.student.thirdpartyId;
+            
+            this.getList(stuID);
+        },
+        getList(stuID) {
+            this.loading = true;
+            this.tableData = [];
 
             getStudyInfo({
-                companyID: userInfo.student.schoolThirdpartyId,
-                stuID: userInfo.student.thirdpartyId,
+                companyID: this.userInfo.student.schoolThirdpartyId,
+                stuID,
             })
                 .then((res) => {
                     this.loading = false;
@@ -136,7 +169,7 @@ export default {
                     this.loading = false;
                 });
         },
-        cancel(info) {},
+        // cancel(info) {},
     },
 };
 </script>
