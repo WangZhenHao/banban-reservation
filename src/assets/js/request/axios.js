@@ -124,7 +124,7 @@ Axios.interceptors.response.use(
           confirmButtonText: '确定',
           showClose: false,
           closeOnClickModal: false,
-          showCancelButton: false
+          showCancelButton: true
       }).then(() => {
         store.dispatch('logout')
       })
