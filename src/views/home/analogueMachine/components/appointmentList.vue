@@ -81,7 +81,8 @@
 const STATUSMAP = {
     0: '待开始',
     1: '已完成',
-    3: '已取消'
+    3: '已取消',
+    4: '爽约'
 }
 import {
     searchAppointment,

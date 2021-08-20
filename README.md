@@ -6,6 +6,7 @@
 网站地址：[http://18.224.19.73:3002/#/home](http://18.224.19.73:3002/#/home)
 
 ![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize.jpg)
+![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize2.jpg)
 
 ### 注意事项：
 
@@ -53,8 +54,8 @@ npm run server
 - [x] 自定义预约任务
 - [x] 查看教练课程安排
 - [x] 当天预约
+- [x] 模拟机预约
 
 >代办事项
-- [ ] 模拟机预约
 - [ ] 科目三的预约
 - [ ] 取消练车

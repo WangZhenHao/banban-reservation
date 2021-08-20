@@ -4,7 +4,7 @@
         <div>
             <el-tabs v-model="linkComponent" @tab-click="handleClick">
                 <el-tab-pane label="模拟机预约" name="analogueMachine"></el-tab-pane>
-                <el-tab-pane label="科目二" name="twoSubject"></el-tab-pane>
+                <el-tab-pane label="科目二/三" name="twoSubject"></el-tab-pane>
             </el-tabs>
         </div>
         <div>
