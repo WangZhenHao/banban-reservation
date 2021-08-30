@@ -68,8 +68,8 @@
                                     :src="info.url"
                                     class="student-img"
                                     v-for="(info, j) in item.studentList"
-                                    :title="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a' ? info.stuName : ''"
                                 />
+                                <!-- :title="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a' ? info.stuName : ''" -->
                                 <!-- <span
                                     :key="k"
                                     v-for="(desc, k) in item.studentList"
