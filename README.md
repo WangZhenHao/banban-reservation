@@ -1,9 +1,9 @@
 # 斑斑驾道练车自动预约系统
 
->该服务器预计2022年3月1号过期，请留意时间！
+>该服务器预计2023年2月8号过期，请留意时间！
 >建议把代码克隆下载，在本地运行，线上服务器内存小，运行可能比较卡顿
 
-网站地址：[http://18.224.19.73:3002/#/home](http://18.224.19.73:3002/#/home)
+网站地址：[http://18.181.244.30:3002/#/home](http://18.181.244.30:3002/#/home)
 
 ![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize.jpg)
 ![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize2.jpg)
