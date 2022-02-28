@@ -4,7 +4,8 @@
         title="练车记录"
         width="1004px"
     >
-        <div v-show="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a'">
+     <!-- v-show="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a'" -->
+        <div>
             <el-form
                 :inline="true"
                 :model="form"
@@ -46,6 +47,7 @@
                             :key="index"
                             class="flex-box items-center"
                             v-for="(item, index) in scope.row.studentList"
+                            @click="copyHandle(item, $event)"
                         >
                             <img
                                 :src="item.url"
@@ -120,6 +122,7 @@
 </template>
 <script>
 import { getStudyInfo } from '@api/home';
+import clip from '@js/utils/clipboard'
 
 export default {
     data() {
@@ -152,6 +155,9 @@ export default {
             const stuID = this.form.stuID || userInfo.student.thirdpartyId;
             
             this.getList(stuID);
+        },
+        copyHandle(info, event) {
+             clip(info.stuId, event)
         },
         getList(stuID) {
             this.loading = true;

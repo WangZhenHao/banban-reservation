@@ -68,6 +68,8 @@
                                     :src="info.url"
                                     class="student-img"
                                     v-for="(info, j) in item.studentList"
+                                    :title="info.stuName"
+                                    @click="copyHandle(info, $event)"
                                 />
                                 <!-- :title="userInfo.student.thirdpartyId === '2021031123300112de106c3a60459bb38f4e601b56101a' ? info.stuName : ''" -->
                                 <!-- <span
@@ -125,6 +127,7 @@ import studyList from './components/studyList.vue';
 import { getPlanInfo } from '@api/home';
 import { getCurrentFiveDate, getPreviuosFiveDate, getNextFiveDate } from './js/calender';
 import { reversionPlan } from './js/runTask';
+import clip from '@js/utils/clipboard'
 
 export default {
     components: {
@@ -174,6 +177,9 @@ export default {
         
     },
     methods: {
+        copyHandle(info, event) {
+             clip(info.stuId, event);
+        },
         init() {
             this.dateList = getCurrentFiveDate();
             this.selectDate = this.dateList[0];
