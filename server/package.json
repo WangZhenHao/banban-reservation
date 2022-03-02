@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node ./index.js",
+    "dev": "node ./index.js",
+    "pm2:server": "pm2 start index.js --name banban-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

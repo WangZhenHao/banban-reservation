@@ -5,6 +5,9 @@ const request = require('../../request/request')
 
 const router = new Router({})
 
+router.get('/test', async(ctx, next) => {
+    ctx.body = { 'name': 'wzh' };
+})
 
 router.post('/getPlanInfo', validator({
     companyID: { type: 'string', required: true },

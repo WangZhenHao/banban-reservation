@@ -23,17 +23,20 @@ module.exports = function (options){
       options.headers = {}
     }
     options.headers = {
-      'Content-Type': 'application/json',
       ...options.headers
     }
+    
   }
   return requestPromise(options)
-    .then(res=> ({
-      statusCode: res.statusCode,
-      statusMessage: res.statusMessage,
-      headers: res.headers,
-      body: res.body
-    }))
+    .then(res=> {
+      // console.log(res.request)
+      return {
+        statusCode: res.statusCode,
+        statusMessage: res.statusMessage,
+        headers: res.headers,
+        body: res.body
+      }
+    })
     .catch(err=> {
       return {
         statusCode: -1,
