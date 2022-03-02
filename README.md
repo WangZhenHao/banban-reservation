@@ -43,7 +43,7 @@ koa2 + pm2 + request
 // 安装依赖
 npm i
 // 启动后台服务
-npm run server
+npm run dev
 
 ```
 
