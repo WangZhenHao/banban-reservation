@@ -40,6 +40,8 @@ npm run pm2:server
 后台：
 koa2 + pm2 + request
 
+// 进入项目
+cd server
 // 安装依赖
 npm i
 // 启动后台服务
