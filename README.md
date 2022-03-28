@@ -3,7 +3,7 @@
 >该服务器预计2023年2月8号过期，请留意时间！
 >建议把代码克隆下载，在本地运行，线上服务器内存小，运行可能非常慢，而且不稳定，服务器经常会挂。
 
-网站地址：[http://18.181.244.30:3002/#/home](http://18.181.244.30:3002/#/home)
+网站地址：[http://18.181.244.30:8001/#/home](http://18.181.244.30:8001/#/home)
 
 ![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize.jpg)
 ![图片](https://github.com/WangZhenHao/banban-reservation/raw/master/build/websize2.jpg)
